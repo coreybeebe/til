@@ -1,9 +1,10 @@
 import Foundation
 import Vapor
-import FluentSQLite
+import FluentPostgreSQL
+//import FluentSQLite
 
 
-final class AcronymCategoryPivot: SQLiteUUIDPivot {
+final class AcronymCategoryPivot: PostgreSQLUUIDPivot { //SQLiteUUIDPivot
     
     var id: UUID?
     var acronymID: Acronym.ID
