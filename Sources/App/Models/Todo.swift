@@ -3,7 +3,7 @@
 //
 ///// A single entry of a Todo list.
 //final class Todo: SQLiteModel {
-//    /// The unique identifier for this `Todo`.
+//    /// The unique identi.swift er for this `Todo`.
 //    var id: Int?
 //
 //    /// A title describing what this `Todo` entails.
