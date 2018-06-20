@@ -72,7 +72,7 @@ struct AcronymController: RouteCollection {
         
         return try request.parameters.next(Acronym.self).flatMap(to: User.self) { acronym in
             
-            return try acronym.creator.get(on: request)
+            return acronym.creator.get(on: request)
         }
     }
     
