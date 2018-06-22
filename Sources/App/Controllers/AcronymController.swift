@@ -1,4 +1,5 @@
 import Vapor
+import Fluent
 
 struct AcronymController: RouteCollection {
     
@@ -12,6 +13,7 @@ struct AcronymController: RouteCollection {
         routes.get(use: getAll)
         routes.get(Acronym.parameter, "creator", use: getCreator)
         routes.get(Acronym.parameter, "categories", use: getCategories)
+        routes.get("search", use: search)
         
         //POST
         routes.post(use: create)
@@ -98,6 +100,22 @@ struct AcronymController: RouteCollection {
                 return pivot.save(on: request).transform(to: .ok)
             }
         }
+    }
+    
+    
+    func search(_ request: Request) throws -> Future<[Acronym]> {
+        
+        guard let searchTerm = request.query[String.self, at: "term"] else {
+            
+            throw Abort(.badRequest, reason: "Missing search term in request.")
+        }
+        
+        return Acronym.query(on: request).group(.or){ orQuery in
+            
+            orQuery.filter(\.abbreviation == searchTerm)
+            orQuery.filter(\.description == searchTerm)
+        
+        }.all()
     }
 }
 
